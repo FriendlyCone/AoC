@@ -60,5 +60,3 @@ for value in calibrationvalues:
 
 print(f"\nPart one total is {total1}")
 print(f"Part two total is {total2}")
-
-# 53429 - too low?
