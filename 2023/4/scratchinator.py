@@ -15,8 +15,8 @@ def cardchecker(cardList, isPart2):
         winningnumbers = card[1]
         playingnumbers = card[2]
         print(f"Checking card {cardnumber} (index {cardnumber-1}):")
-        print(f"Winning numbers: {card[1]}")
-        print(f"Playing numbers: {card[2]}")
+        print(f"Winning numbers: {winningnumbers}")
+        print(f"Playing numbers: {playingnumbers}")
         for number in winningnumbers:
             matches = matches + playingnumbers.count(number)
         print(f"Number of matches is {matches}")
