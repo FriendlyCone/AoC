@@ -41,13 +41,14 @@ def checkifpartnumber(schematic, coordX, startY, numberlength):
             continue
         for y in range(startY-1, startY+numberlength+1, 1):
             if y >= 0 and y <= len(schematic[0])-1:
-                print(f"Current coord: {coordX+x}x{y} - Current character: {schematic[coordX+x][y]}")
+                print(f"{schematic[coordX+x][y]}", end="")
                 pass
             else:
                 continue
             if schematic[coordX+x][y] in specialList:
-                print(f"Confirmed it is a part: {schematic[coordX+x][y]}")
+                print(f"\nConfirmed it is a part: {schematic[coordX+x][y]}")
                 return True
+        print("\n", end="")
     return False
 
 def gearfinder(schematic):
@@ -83,20 +84,19 @@ def checkifgear(schematic, coordX, coordY):
             continue
         for y in range(coordY-1, coordY+2, 1):
             if y >= 0 and y <= len(schematic[0])-1:
-                print(f"Current coord: {coordX+x}x{y} - Current character: {schematic[coordX+x][y]}")
+                print(f"{schematic[coordX+x][y]}", end="")
                 pass
             else:
                 continue
             if schematic[coordX+x][y].isnumeric() and gap:
                 numberstoFind.append([coordX+x, y])
                 foundDigits = foundDigits + 1
-                print(f"Found digit {schematic[coordX+x][y]} at Coords {coordX+x}x{y}, this is number {foundDigits}")
                 gap = False
             elif not schematic[coordX+x][y].isnumeric():
                 gap = True
+        print("\n", end="")
     if foundDigits == 2:
-        print("Found exactly 2 attached digits.")
-        print(numberstoFind)
+        print("Found exactly 2 attached numbers.")
         gear = numberator(schematic, numberstoFind)
         return True, gear
     return False, gear
@@ -138,4 +138,4 @@ partList = partfinder(schematic)
 gearList = gearfinder(schematic)
 
 print(f"\nPart 1 answer: {sum(partList)}")
-print(f"\nPart 2 answer: {sum(gearList)}")
+print(f"Part 2 answer: {sum(gearList)}")
