@@ -26,24 +26,21 @@ def gamevalidator(gameRED, gameGREEN, gameBLUE):
     for red in gameRED:
         if red > 12:
             valid = False
-            break
-    if valid:
-        for green in gameGREEN:
-            if green > 13:
-                valid = False
-                break
-    if valid:
-        for blue in gameBLUE:
-            if blue > 14:
-                valid = False
-                break
+            return valid
+    for green in gameGREEN:
+        if green > 13:
+            valid = False
+            return valid
+    for blue in gameBLUE:
+        if blue > 14:
+            valid = False
+            return valid
     return valid
 
 sumID = 0
 sumsetpower = 0
 for game in gamelist:
-    gameID, gameRED, gameGREEN, gameBLUE, \
-    gameREDmax, gameGREENmax, gameBLUEmax = gameprocessor(game)
+    gameID, gameRED, gameGREEN, gameBLUE, gameREDmax, gameGREENmax, gameBLUEmax = gameprocessor(game)
     valid = gamevalidator(gameRED, gameGREEN, gameBLUE)
     if valid:
         sumID = sumID + gameID
