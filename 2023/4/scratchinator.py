@@ -38,7 +38,7 @@ def cardchecker(cardList, isPart2):
         matches = 0
     return answer
 
-answer = cardchecker(cardList, False)
-print(f"Part 1 is: {answer}")
-answer = cardchecker(cardList, True)
-print(f"Part 2 is: {answer}")
+answer1 = cardchecker(cardList, False)
+answer2 = cardchecker(cardList, True)
+print(f"Part 1 is: {answer1}")
+print(f"Part 2 is: {answer2}")

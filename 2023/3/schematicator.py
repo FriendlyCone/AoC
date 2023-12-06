@@ -3,7 +3,7 @@ with open("input.txt", "r") as inputfile:
     for line in inputfile:
         column = [*line.strip()]
         schematic.append(column)
-        
+
 def partfinder(schematic):
     partList = []
     numberlength = 0
