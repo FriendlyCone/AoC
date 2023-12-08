@@ -20,6 +20,7 @@ gameList = []
 
 # with open("test.txt", "r") as inputfile:
 with open("input.txt", "r") as inputfile:
+# with open("D:/GitLabRepositories/adventofcode/advent-of-code/2023/7/input.txt", "r") as inputfile:
     for line in inputfile:
         # Split into hand + score
         newhandEntry = []
@@ -36,6 +37,7 @@ with open("input.txt", "r") as inputfile:
 # There is 7 hand types, need to score it based on hand type, and if same type check more valuable
 def rankinator(checkingHand, rankList):
     currentcheckingHand = checkingHand[0]
+    hadTieBreak = False
     rankList.reverse()
     newrankList = rankList.copy()
     # Find type of current hand first
@@ -49,13 +51,15 @@ def rankinator(checkingHand, rankList):
         # Rank default: 1, 2, 3, 4
         # Rank reverse: 4, 3, 2, 1
         # If we win, place it on the loser's index
-        if currentHandType > rankedHandType:
+        if currentHandType > rankedHandType and not hadTieBreak:
             newPosition = newrankList.index(rankedHand)
             newrankList.insert(newPosition, checkingHand)
+            # print(f"Comparing {currentcheckingHand} to {currentrankedHand}: {currentHandType}-{rankedHandType}. We win, place at {newPosition}")
             break
         # If we lose, do nothing unless its the last hand, then put it at the end.
-        elif currentHandType < rankedHandType:
+        elif currentHandType < rankedHandType and not hadTieBreak:
             if rankedHand == rankList[-1]:
+                # print(f"Comparing {currentcheckingHand} to {currentrankedHand}: {currentHandType}-{rankedHandType}. We lose, place at the end.")
                 newrankList.append(checkingHand)
         # If the hand type is the same, put it in the tiebreaker.
         elif currentHandType == rankedHandType:
@@ -64,16 +68,24 @@ def rankinator(checkingHand, rankList):
             if currenthandWins:
                 newPosition = newrankList.index(rankedHand)
                 newrankList.insert(newPosition, checkingHand)
-                break
-            # If we lose the tiebreaker, put it behind the loser's index.
-            elif rankedHand == rankList[-1]:
-                newrankList.append(checkingHand)
+                hadTieBreak = False
+                # print(f"Comparing {currentcheckingHand} to {currentrankedHand}: {currentHandType}-{rankedHandType}. We tie but win, place at {newPosition}")
                 break
             else:
                 newPosition = newrankList.index(rankedHand) + 1
-                newrankList.insert(newPosition, checkingHand)
-                break
+                hadTieBreak = True
+                # print(f"Comparing {currentcheckingHand} to {currentrankedHand}: {currentHandType}-{rankedHandType}. We tie and lose. Check next...")
+                # print(f"DEBUG: {newPosition}")
+        elif hadTieBreak:
+            newrankList.insert(newPosition, checkingHand)
+            hadTieBreak = False
+            # print(f"Comparing {currentcheckingHand} to {currentrankedHand}: {currentHandType}-{rankedHandType}. We tied previously, run {newPosition}")
+            break
     # print(f"Place at position: {newPosition}")
+    if hadTieBreak:
+        newrankList.insert(newPosition, checkingHand)
+        hadTieBreak = False
+        # print(f"Comparing {currentcheckingHand} to {currentrankedHand}: {currentHandType}-{rankedHandType}. We tied previously, run {newPosition}. This is the last hand to check.")
     # print(f"Current order: {newrankList}")
     newrankList.reverse()
     return newrankList
@@ -159,6 +171,7 @@ def initial(gameList):
         else:
             rankedList = rankinator(game, rankedList)
     # Gotta math the scores
+    print(rankedList)
     answer = scoreinator(rankedList)
     return answer
 
@@ -173,3 +186,5 @@ if __name__ == '__main__':
     
     # 250178729 answer is too high
     # 250285767 answer is too high
+    # 197443191 answer is wrong
+    # 250178729
