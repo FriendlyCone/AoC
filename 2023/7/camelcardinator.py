@@ -159,6 +159,17 @@ def scoreinator(rankedList):
         bid = handbid[1]
         score = bid * rank
         scoreList.append(score)
+        ### Code only for debugging can go after
+        hand = handbid[0]
+        namedEntry = []
+        for card in hand:
+            for cardValue in cardValues:
+                if card == cardValue[1]:
+                    namedEntry.append(cardValue[0])
+        handEntry = [str(entry) for entry in namedEntry]
+        hand = "".join(handEntry)
+        print(f"Hand: {hand}, Bid: {bid}, Rank: {rank}, Winning: {score}")
+        ### Above code only for debugging can go after
     output = sum(scoreList)
     return output
 
@@ -171,7 +182,7 @@ def initial(gameList):
         else:
             rankedList = rankinator(game, rankedList)
     # Gotta math the scores
-    print(rankedList)
+    # print(rankedList)
     answer = scoreinator(rankedList)
     return answer
 
@@ -187,4 +198,4 @@ if __name__ == '__main__':
     # 250178729 answer is too high
     # 250285767 answer is too high
     # 197443191 answer is wrong
-    # 250178729
+    # 250679229 answer is too high
