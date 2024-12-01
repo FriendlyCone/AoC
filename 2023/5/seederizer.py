@@ -153,7 +153,6 @@ def almanaccheck(input, map):
                 break
             # Check partial match right
             elif seedrange[0] > comparison[0] and not seedrange[-1] < comparison[-1]:
-                # Contained should be seedrange[0] - comparison[-1]
                 containedRange = [seedrange[0]+diff, comparison[-1]+diff]
                 output.append(containedRange)
                 # Not contained
